@@ -15,7 +15,7 @@ for record in csvfile:
     lname = record[2]
     country = record[4]
 
-    data = (fname + ' ' + lname  + ' ' + country)
+    data = (fname + ' ' + lname  + ', ' + country)
 
     outfile.write(data + '\n')
 
