@@ -1,4 +1,5 @@
 import csv
+import calendar
 
 infile = open('steps.csv', 'r')
 outfile = open('avg_steps.csv', 'w')
@@ -7,12 +8,12 @@ csvfile = csv.reader(infile, delimiter = ',')
 
 next(csvfile)
 
-months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-
 month = 1
 total = 0
 num = 0
-a = 0
+a = 1
+
+outfile.write('Month, Steps' + '\n')
 
 
 for row in csvfile:
@@ -22,18 +23,27 @@ for row in csvfile:
         num += 1
         total += int(row[1])
 
+        if int(row[0]) == 12:
+
+            month_name = calendar.month_name[a]            
+            average = round(total/num, 2)
+            answer = str(average)
+
+            outfile.write(month_name + ', ' + answer + '\n')
+
+            break
+
     else:
 
         average = round(total/num, 2)
         answer = str(average)
+        month_name = calendar.month_name[a]
 
+        outfile.write(month_name + ', ' + answer + '\n')
 
-        outfile.write(months[a] + ', ' + answer + '\n')
-
-        num = 0
-        total = 0
-        month += 1
         a += 1
+        num = 1
+        total = int(row[1])
+        month = int(row[0])
 
 outfile.close()
-infile.close()
